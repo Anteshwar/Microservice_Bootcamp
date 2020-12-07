@@ -1,0 +1,30 @@
+spring:
+  cloud:
+    stream:      
+      bindings: 
+        webaudit-out:
+         binder: rabbit
+         destination: ex.webaudit  #Exchange
+         group: q.audit # queue
+         
+      rabbit: 
+        bindings:
+          webaudit-out:
+            producer:
+              bindQueue: false
+              routingKeyExpression: '''rkdiscountaudit'''
+              declareExchange: false
+              exchangeType: direct
+              
+categoryDiscount:
+  mobile: 12
+  tablet: 15
+  laptop: 30
+  tv: 20
+  heahphone: 5
+  home_audio: 17
+  computer_accessories: 20
+  vehicle_electronics: 14
+  cameras: 18
+
+fixedCategoryDiscount: 15

@@ -1,0 +1,28 @@
+spring:
+  cloud:
+    stream:
+      bindings:
+        webaudit-in:
+          binder: rabbit-binder
+          destination: ex.webaudit  #Exchange
+          group: q.audit # queue               
+ 
+      rabbit: 
+        bindings:
+          webaudit-in:
+            consumer:
+              bindQueue: false
+              declareExchange: false
+              exchangeType: direct
+              queueNameGroupOnly: true
+              routingKeyExpression: '''rkdiscountaudit'''
+
+      binders:      
+        rabbit-binder:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: localhost
+                port: 5672
+ 

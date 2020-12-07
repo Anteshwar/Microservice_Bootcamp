@@ -1,0 +1,20 @@
+version: "3.3"
+
+services:
+  lab1_demo:
+    image: amitkch/lab1_demo:latest
+    restart: always
+    environment:
+      db.url: 'jdbc:mysql://db1:3306/training'
+      db.user: 'dbuser'
+      db.password: 'passw0rd'
+    ports:
+      # <Port exposed> : < MySQL Port running inside container>
+      - '9012:9012'
+    expose:
+      # Opens port 3306 on the container
+      - '9012'
+networks:
+  default:
+    external:
+      name: bootcamp_nw

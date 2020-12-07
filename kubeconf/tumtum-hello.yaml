@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: tutum
+  name: tutum
+spec:
+  containers:
+  - image: tutum/hello-world
+    imagePullPolicy: Always
+    name: tutum
+    ports:
+      - containerPort: 80
+        name: http

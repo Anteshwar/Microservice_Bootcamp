@@ -1,0 +1,15 @@
+feign:
+  hystrix: 
+    enabled: true
+    
+hystrix: 
+  dashboard:
+    proxy-stream-allow-list: '*'
+
+
+service:
+  description: This is modified product service 2
+  environment: Development
+
+products:
+  categories: mobile, tablet, laptop, tv, heahphone, home_audio, computer_accessories, vehicle_electronics, cameras, home_and_kitchen

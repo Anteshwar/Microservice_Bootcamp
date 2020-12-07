@@ -1,0 +1,25 @@
+server:
+  port: 8091
+
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: ${config.source:https://github.ibm.com/chaudhary-amit/ms-boot-camp-docker-config.git}
+          username: ${git.user}
+          password: ${git.password}
+
+# enable cloud bus to public changes
+    bus:
+      enabled: true
+      destination: configExchange
+  rabbitmq:
+    host: ${rabbitmq.host:localhost}
+    port: 5672 # since is it default in all environments let us not complicate it by externalizing
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

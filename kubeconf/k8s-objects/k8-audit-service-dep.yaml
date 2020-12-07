@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  labels: 
+    app: audit-service
+    version: v1
+  name: audit-service
+spec: 
+  replicas: 1
+  selector: 
+    matchLabels: 
+      app: audit-service
+      version: v1
+  template: 
+    metadata: 
+      labels: 
+        app: audit-service
+        version: v1
+    spec: 
+      containers: 
+        - image: "sandeeplakhanpal/audit-serviceoct:1"
+          name: audit-service
+          ports: 
+          - containerPort: 8077
+          env:
+            - name: zipkin.url
+              value: "http://zipkin:9411"
+            - name: rabbitmq.host
+              value: "rabbitmq-master"
+            - name: rabbitmq.port
+              value: "5672"
+            - name: config.server.uri
+              value: "http://config-service:8090"
+            - name: webaudit-service.eureka.client.service-registry-url
+              value: "http://discovery-service:8761/eureka"
+          resources:
+            requests:
+                memory: "256Mi"
+                cpu: "200m"
+            limits:
+                memory: "768Mi"
+                cpu: "400m"                

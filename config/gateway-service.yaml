@@ -1,0 +1,15 @@
+server:
+  port: 9000
+  
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: product-service
+        uri: lb://product-service
+        predicates:
+        - Path=/*/products/**
+        
+        
+zipkin:
+  url: http://localhost:9411

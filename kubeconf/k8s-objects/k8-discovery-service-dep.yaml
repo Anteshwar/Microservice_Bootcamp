@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  labels: 
+    app: discovery-service
+    version: v1
+  name: discovery-service
+spec: 
+  replicas: 5
+  selector: 
+    matchLabels: 
+      app: discovery-service
+      version: v1
+  template: 
+    metadata: 
+      labels: 
+        app: discovery-service
+        version: v1
+    spec: 
+      containers: 
+        - 
+          image: "amitkch/discovery-service"
+          imagePullPolicy: Always
+          name: discovery-service
+          ports: 
+            - 
+              containerPort: 8761
+              name: http
+              protocol: TCP
+
+          resources:
+            requests:
+                memory: "256Mi"
+                cpu: "200m"
+            limits:
+                memory: "768Mi"
+                cpu: "400m"                 
+#          livenessProbe: 
+#            httpGet: 
+#              path: /actuator/health
+#              port: 8889
+#              scheme: HTTP
+#            initialDelaySeconds: 20
+#            periodSeconds: 5
+#            timeoutSeconds: 1
+
+#          readinessProbe: 
+#            httpGet: 
+#              path: /actuator/health
+#              port: 8889
+#              scheme: HTTP
+#            initialDelaySeconds: 10
+#            periodSeconds: 5
+#            timeoutSeconds: 1

@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  labels: 
+    app: gateway-service
+    version: v1
+  name: gateway-service
+spec: 
+  replicas: 1
+  selector: 
+    matchLabels: 
+      app: gateway-service
+      version: v1
+  template: 
+    metadata: 
+      labels: 
+        app: gateway-service
+        version: v1
+    spec: 
+      containers: 
+        - image: "amitkch/gateway-service"
+          name: gateway-service
+          ports: 
+          - containerPort: 9000
+          env:
+            - name: zipkin.url 
+              value: "http://zipkin:9411"
+            - name: rabbitmq.host
+              value: "rabbitmq-master"
+            - name: rabbitmq.port
+              value: "5672"
+            - name: config.url
+              value: "http://config-service:8090"
+            - name: eureka.url
+              value: "http://discovery-service:8761/eureka"
+          resources:
+            requests:
+                memory: "256Mi"
+                cpu: "200m"
+            limits:
+                memory: "768Mi"
+                cpu: "400m"                
